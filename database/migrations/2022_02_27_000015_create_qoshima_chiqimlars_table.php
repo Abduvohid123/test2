@@ -12,7 +12,6 @@ class CreateQoshimaChiqimlarsTable extends Migration
             $table->bigIncrements('id');
             $table->longText('chiqim_sababi');
             $table->float('summa', 15, 2);
-            $table->string('who_is_deleted')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

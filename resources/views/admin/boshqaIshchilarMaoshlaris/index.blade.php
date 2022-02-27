@@ -38,6 +38,9 @@
                             {{ trans('cruds.boshqaIshchilarMaoshlari.fields.jarima') }}
                         </th>
                         <th>
+                            {{ trans('cruds.boshqaIshchilarMaoshlari.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -62,6 +65,9 @@
                             </td>
                             <td>
                                 {{ $boshqaIshchilarMaoshlari->jarima ?? '' }}
+                            </td>
+                            <td>
+                                {{ $boshqaIshchilarMaoshlari->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('boshqa_ishchilar_maoshlari_show')

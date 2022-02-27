@@ -27,6 +27,7 @@ class BoshqaIshchilarMaoshlari extends Model
         'summa',
         'bonus',
         'jarima',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -35,6 +36,11 @@ class BoshqaIshchilarMaoshlari extends Model
     public function worker()
     {
         return $this->belongsTo(Worker::class, 'worker_id');
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

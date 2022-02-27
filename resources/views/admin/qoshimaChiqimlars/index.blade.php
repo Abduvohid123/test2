@@ -35,6 +35,9 @@
                             {{ trans('cruds.qoshimaChiqimlar.fields.kim_tarafidan_olindi') }}
                         </th>
                         <th>
+                            {{ trans('cruds.qoshimaChiqimlar.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -56,6 +59,9 @@
                             </td>
                             <td>
                                 {{ $qoshimaChiqimlar->kim_tarafidan_olindi->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $qoshimaChiqimlar->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('qoshima_chiqimlar_show')

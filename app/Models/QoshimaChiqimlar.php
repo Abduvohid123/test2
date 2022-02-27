@@ -26,7 +26,7 @@ class QoshimaChiqimlar extends Model
         'chiqim_sababi',
         'summa',
         'kim_tarafidan_olindi_id',
-        'who_is_deleted',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -35,6 +35,11 @@ class QoshimaChiqimlar extends Model
     public function kim_tarafidan_olindi()
     {
         return $this->belongsTo(Worker::class, 'kim_tarafidan_olindi_id');
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

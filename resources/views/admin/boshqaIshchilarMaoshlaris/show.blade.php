@@ -55,6 +55,14 @@
                             {{ $boshqaIshchilarMaoshlari->jarima }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.boshqaIshchilarMaoshlari.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $boshqaIshchilarMaoshlari->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

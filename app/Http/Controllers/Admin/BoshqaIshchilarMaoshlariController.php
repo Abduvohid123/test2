@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroyBoshqaIshchilarMaoshlariRequest;
 use App\Http\Requests\StoreBoshqaIshchilarMaoshlariRequest;
 use App\Http\Requests\UpdateBoshqaIshchilarMaoshlariRequest;
 use App\Models\BoshqaIshchilarMaoshlari;
+use App\Models\Filial;
 use App\Models\Worker;
 use Gate;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class BoshqaIshchilarMaoshlariController extends Controller
     {
         abort_if(Gate::denies('boshqa_ishchilar_maoshlari_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $boshqaIshchilarMaoshlaris = BoshqaIshchilarMaoshlari::with(['worker'])->get();
+        $boshqaIshchilarMaoshlaris = BoshqaIshchilarMaoshlari::with(['worker', 'filial'])->get();
 
         return view('admin.boshqaIshchilarMaoshlaris.index', compact('boshqaIshchilarMaoshlaris'));
     }
@@ -29,7 +30,9 @@ class BoshqaIshchilarMaoshlariController extends Controller
 
         $workers = Worker::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.boshqaIshchilarMaoshlaris.create', compact('workers'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.boshqaIshchilarMaoshlaris.create', compact('filials', 'workers'));
     }
 
     public function store(StoreBoshqaIshchilarMaoshlariRequest $request)
@@ -45,9 +48,11 @@ class BoshqaIshchilarMaoshlariController extends Controller
 
         $workers = Worker::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $boshqaIshchilarMaoshlari->load('worker');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.boshqaIshchilarMaoshlaris.edit', compact('boshqaIshchilarMaoshlari', 'workers'));
+        $boshqaIshchilarMaoshlari->load('worker', 'filial');
+
+        return view('admin.boshqaIshchilarMaoshlaris.edit', compact('boshqaIshchilarMaoshlari', 'filials', 'workers'));
     }
 
     public function update(UpdateBoshqaIshchilarMaoshlariRequest $request, BoshqaIshchilarMaoshlari $boshqaIshchilarMaoshlari)
@@ -61,7 +66,7 @@ class BoshqaIshchilarMaoshlariController extends Controller
     {
         abort_if(Gate::denies('boshqa_ishchilar_maoshlari_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $boshqaIshchilarMaoshlari->load('worker');
+        $boshqaIshchilarMaoshlari->load('worker', 'filial');
 
         return view('admin.boshqaIshchilarMaoshlaris.show', compact('boshqaIshchilarMaoshlari'));
     }

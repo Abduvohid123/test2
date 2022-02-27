@@ -133,6 +133,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted at',
             'deleted_at_helper' => ' ',
+            'filial'            => 'Filial',
+            'filial_helper'     => ' ',
         ],
     ],
     'position' => [
@@ -313,8 +315,8 @@ return [
             'deleted_at_helper'           => ' ',
             'kim_tarafidan_olindi'        => 'Kim Tarafidan Olindi',
             'kim_tarafidan_olindi_helper' => ' ',
-            'who_is_deleted'              => 'Who Is Deleted',
-            'who_is_deleted_helper'       => ' ',
+            'filial'                      => 'Filial',
+            'filial_helper'               => ' ',
         ],
     ],
     'boshqaIshchilarMaoshlari' => [
@@ -337,6 +339,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted at',
             'deleted_at_helper' => ' ',
+            'filial'            => 'Filial',
+            'filial_helper'     => ' ',
         ],
     ],
     'addTeacheToGroup' => [

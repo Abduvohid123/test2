@@ -31,6 +31,14 @@
                             {{ $sorovnoma->name }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.sorovnoma.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $sorovnoma->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

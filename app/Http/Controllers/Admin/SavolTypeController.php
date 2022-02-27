@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroySavolTypeRequest;
 use App\Http\Requests\StoreSavolTypeRequest;
 use App\Http\Requests\UpdateSavolTypeRequest;
+use App\Models\Filial;
 use App\Models\SavolType;
 use App\Models\Sorovnoma;
 use Gate;
@@ -18,7 +19,7 @@ class SavolTypeController extends Controller
     {
         abort_if(Gate::denies('savol_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $savolTypes = SavolType::with(['sorovnoma'])->get();
+        $savolTypes = SavolType::with(['sorovnoma', 'filial'])->get();
 
         return view('admin.savolTypes.index', compact('savolTypes'));
     }
@@ -29,7 +30,9 @@ class SavolTypeController extends Controller
 
         $sorovnomas = Sorovnoma::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.savolTypes.create', compact('sorovnomas'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.savolTypes.create', compact('filials', 'sorovnomas'));
     }
 
     public function store(StoreSavolTypeRequest $request)
@@ -45,9 +48,11 @@ class SavolTypeController extends Controller
 
         $sorovnomas = Sorovnoma::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $savolType->load('sorovnoma');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.savolTypes.edit', compact('savolType', 'sorovnomas'));
+        $savolType->load('sorovnoma', 'filial');
+
+        return view('admin.savolTypes.edit', compact('filials', 'savolType', 'sorovnomas'));
     }
 
     public function update(UpdateSavolTypeRequest $request, SavolType $savolType)
@@ -61,7 +66,7 @@ class SavolTypeController extends Controller
     {
         abort_if(Gate::denies('savol_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $savolType->load('sorovnoma');
+        $savolType->load('sorovnoma', 'filial');
 
         return view('admin.savolTypes.show', compact('savolType'));
     }

@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroyGroupRequest;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Models\Fan;
+use App\Models\Filial;
 use App\Models\Group;
 use App\Models\Room;
 use App\Models\Week;
@@ -20,7 +21,7 @@ class GroupsController extends Controller
     {
         abort_if(Gate::denies('group_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $groups = Group::with(['room', 'fan', 'days'])->get();
+        $groups = Group::with(['room', 'fan', 'days', 'filial'])->get();
 
         return view('admin.groups.index', compact('groups'));
     }
@@ -35,7 +36,9 @@ class GroupsController extends Controller
 
         $days = Week::pluck('name', 'id');
 
-        return view('admin.groups.create', compact('days', 'fans', 'rooms'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.groups.create', compact('days', 'fans', 'filials', 'rooms'));
     }
 
     public function store(StoreGroupRequest $request)
@@ -56,9 +59,11 @@ class GroupsController extends Controller
 
         $days = Week::pluck('name', 'id');
 
-        $group->load('room', 'fan', 'days');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.groups.edit', compact('days', 'fans', 'group', 'rooms'));
+        $group->load('room', 'fan', 'days', 'filial');
+
+        return view('admin.groups.edit', compact('days', 'fans', 'filials', 'group', 'rooms'));
     }
 
     public function update(UpdateGroupRequest $request, Group $group)
@@ -73,7 +78,7 @@ class GroupsController extends Controller
     {
         abort_if(Gate::denies('group_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $group->load('room', 'fan', 'days');
+        $group->load('room', 'fan', 'days', 'filial');
 
         return view('admin.groups.show', compact('group'));
     }

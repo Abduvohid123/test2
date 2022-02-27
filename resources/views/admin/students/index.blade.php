@@ -68,6 +68,9 @@
                             {{ trans('cruds.student.fields.user') }}
                         </th>
                         <th>
+                            {{ trans('cruds.student.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -151,6 +154,14 @@
                             </select>
                         </td>
                         <td>
+                            <select class="search">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach($filials as $key => $item)
+                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
                         </td>
                     </tr>
                 </thead>
@@ -212,6 +223,9 @@
                             </td>
                             <td>
                                 {{ $student->user->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $student->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('student_show')

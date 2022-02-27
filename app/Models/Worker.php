@@ -41,6 +41,7 @@ class Worker extends Model implements HasMedia
         'status',
         'description',
         'user_id',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -72,6 +73,11 @@ class Worker extends Model implements HasMedia
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

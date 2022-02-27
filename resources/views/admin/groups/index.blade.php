@@ -56,6 +56,9 @@
                             {{ trans('cruds.group.fields.start_cource') }}
                         </th>
                         <th>
+                            {{ trans('cruds.group.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -100,6 +103,9 @@
                             </td>
                             <td>
                                 {{ $group->start_cource ?? '' }}
+                            </td>
+                            <td>
+                                {{ $group->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('group_show')

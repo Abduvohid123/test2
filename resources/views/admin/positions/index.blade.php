@@ -29,6 +29,9 @@
                             {{ trans('cruds.position.fields.name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.position.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -44,6 +47,9 @@
                             </td>
                             <td>
                                 {{ $position->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $position->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('position_show')

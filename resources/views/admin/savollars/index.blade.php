@@ -32,6 +32,9 @@
                             {{ trans('cruds.savollar.fields.savol_type') }}
                         </th>
                         <th>
+                            {{ trans('cruds.savollar.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -50,6 +53,9 @@
                             </td>
                             <td>
                                 {{ $savollar->savol_type->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $savollar->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('savollar_show')

@@ -29,6 +29,9 @@
                             {{ trans('cruds.sorovnoma.fields.name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.sorovnoma.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -44,6 +47,9 @@
                             </td>
                             <td>
                                 {{ $sorovnoma->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $sorovnoma->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('sorovnoma_show')

@@ -39,6 +39,14 @@
                             {{ $javoblar->savol->savol_title ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.javoblar.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $javoblar->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

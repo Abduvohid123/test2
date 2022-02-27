@@ -17,7 +17,7 @@ class SorovnomaApiController extends Controller
     {
         abort_if(Gate::denies('sorovnoma_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new SorovnomaResource(Sorovnoma::all());
+        return new SorovnomaResource(Sorovnoma::with(['filial'])->get());
     }
 
     public function store(StoreSorovnomaRequest $request)
@@ -33,7 +33,7 @@ class SorovnomaApiController extends Controller
     {
         abort_if(Gate::denies('sorovnoma_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new SorovnomaResource($sorovnoma);
+        return new SorovnomaResource($sorovnoma->load(['filial']));
     }
 
     public function update(UpdateSorovnomaRequest $request, Sorovnoma $sorovnoma)

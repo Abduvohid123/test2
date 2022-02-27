@@ -47,6 +47,14 @@
                             {{ App\Models\Kashalok::STATUS_SELECT[$kashalok->status] ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.kashalok.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $kashalok->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

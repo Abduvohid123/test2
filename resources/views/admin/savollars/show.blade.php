@@ -47,6 +47,14 @@
                             {{ $savollar->savol_type->name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.savollar.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $savollar->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

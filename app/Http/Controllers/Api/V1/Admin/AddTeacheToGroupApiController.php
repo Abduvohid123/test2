@@ -17,7 +17,7 @@ class AddTeacheToGroupApiController extends Controller
     {
         abort_if(Gate::denies('add_teache_to_group_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new AddTeacheToGroupResource(AddTeacheToGroup::with(['group', 'teachers'])->get());
+        return new AddTeacheToGroupResource(AddTeacheToGroup::with(['group', 'teachers', 'filial'])->get());
     }
 
     public function store(StoreAddTeacheToGroupRequest $request)
@@ -34,7 +34,7 @@ class AddTeacheToGroupApiController extends Controller
     {
         abort_if(Gate::denies('add_teache_to_group_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new AddTeacheToGroupResource($addTeacheToGroup->load(['group', 'teachers']));
+        return new AddTeacheToGroupResource($addTeacheToGroup->load(['group', 'teachers', 'filial']));
     }
 
     public function update(UpdateAddTeacheToGroupRequest $request, AddTeacheToGroup $addTeacheToGroup)

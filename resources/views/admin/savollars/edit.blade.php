@@ -45,6 +45,20 @@
                 <span class="help-block">{{ trans('cruds.savollar.fields.savol_type_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="filial_id">{{ trans('cruds.savollar.fields.filial') }}</label>
+                <select class="form-control select2 {{ $errors->has('filial') ? 'is-invalid' : '' }}" name="filial_id" id="filial_id">
+                    @foreach($filials as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('filial_id') ? old('filial_id') : $savollar->filial->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('filial'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('filial') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.savollar.fields.filial_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

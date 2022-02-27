@@ -31,6 +31,14 @@
                             {{ $position->name }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.position.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $position->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

@@ -29,6 +29,7 @@ class Kashalok extends Model
         'user_id',
         'summa',
         'status',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -37,6 +38,11 @@ class Kashalok extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

@@ -38,6 +38,9 @@
                             {{ trans('cruds.addTeacheToGroup.fields.oylik') }}
                         </th>
                         <th>
+                            {{ trans('cruds.addTeacheToGroup.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -64,6 +67,9 @@
                             </td>
                             <td>
                                 {{ $addTeacheToGroup->oylik ?? '' }}
+                            </td>
+                            <td>
+                                {{ $addTeacheToGroup->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('add_teache_to_group_show')

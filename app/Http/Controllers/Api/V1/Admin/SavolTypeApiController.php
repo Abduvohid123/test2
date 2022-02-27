@@ -17,7 +17,7 @@ class SavolTypeApiController extends Controller
     {
         abort_if(Gate::denies('savol_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new SavolTypeResource(SavolType::with(['sorovnoma'])->get());
+        return new SavolTypeResource(SavolType::with(['sorovnoma', 'filial'])->get());
     }
 
     public function store(StoreSavolTypeRequest $request)
@@ -33,7 +33,7 @@ class SavolTypeApiController extends Controller
     {
         abort_if(Gate::denies('savol_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new SavolTypeResource($savolType->load(['sorovnoma']));
+        return new SavolTypeResource($savolType->load(['sorovnoma', 'filial']));
     }
 
     public function update(UpdateSavolTypeRequest $request, SavolType $savolType)

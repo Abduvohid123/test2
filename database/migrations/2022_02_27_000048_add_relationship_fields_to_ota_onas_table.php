@@ -11,6 +11,8 @@ class AddRelationshipFieldsToOtaOnasTable extends Migration
         Schema::table('ota_onas', function (Blueprint $table) {
             $table->unsignedBigInteger('student_id')->nullable();
             $table->foreign('student_id', 'student_fk_6097462')->references('id')->on('students');
+            $table->unsignedBigInteger('filial_id')->nullable();
+            $table->foreign('filial_id', 'filial_fk_6100089')->references('id')->on('filials');
         });
     }
 }

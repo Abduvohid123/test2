@@ -20,7 +20,7 @@ class WorkersApiController extends Controller
     {
         abort_if(Gate::denies('worker_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new WorkerResource(Worker::with(['position', 'user'])->get());
+        return new WorkerResource(Worker::with(['position', 'user', 'filial'])->get());
     }
 
     public function store(StoreWorkerRequest $request)
@@ -40,7 +40,7 @@ class WorkersApiController extends Controller
     {
         abort_if(Gate::denies('worker_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new WorkerResource($worker->load(['position', 'user']));
+        return new WorkerResource($worker->load(['position', 'user', 'filial']));
     }
 
     public function update(UpdateWorkerRequest $request, Worker $worker)

@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyJavoblarRequest;
 use App\Http\Requests\StoreJavoblarRequest;
 use App\Http\Requests\UpdateJavoblarRequest;
+use App\Models\Filial;
 use App\Models\Javoblar;
 use App\Models\Savollar;
 use Gate;
@@ -22,7 +23,7 @@ class JavoblarController extends Controller
     {
         abort_if(Gate::denies('javoblar_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $javoblars = Javoblar::with(['savol'])->get();
+        $javoblars = Javoblar::with(['savol', 'filial'])->get();
 
         return view('admin.javoblars.index', compact('javoblars'));
     }
@@ -33,7 +34,9 @@ class JavoblarController extends Controller
 
         $savols = Savollar::pluck('savol_title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.javoblars.create', compact('savols'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.javoblars.create', compact('filials', 'savols'));
     }
 
     public function store(StoreJavoblarRequest $request)
@@ -53,9 +56,11 @@ class JavoblarController extends Controller
 
         $savols = Savollar::pluck('savol_title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $javoblar->load('savol');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.javoblars.edit', compact('javoblar', 'savols'));
+        $javoblar->load('savol', 'filial');
+
+        return view('admin.javoblars.edit', compact('filials', 'javoblar', 'savols'));
     }
 
     public function update(UpdateJavoblarRequest $request, Javoblar $javoblar)
@@ -69,7 +74,7 @@ class JavoblarController extends Controller
     {
         abort_if(Gate::denies('javoblar_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $javoblar->load('savol');
+        $javoblar->load('savol', 'filial');
 
         return view('admin.javoblars.show', compact('javoblar'));
     }

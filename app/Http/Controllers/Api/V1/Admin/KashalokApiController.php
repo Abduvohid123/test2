@@ -17,7 +17,7 @@ class KashalokApiController extends Controller
     {
         abort_if(Gate::denies('kashalok_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new KashalokResource(Kashalok::with(['user'])->get());
+        return new KashalokResource(Kashalok::with(['user', 'filial'])->get());
     }
 
     public function store(StoreKashalokRequest $request)
@@ -33,7 +33,7 @@ class KashalokApiController extends Controller
     {
         abort_if(Gate::denies('kashalok_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new KashalokResource($kashalok->load(['user']));
+        return new KashalokResource($kashalok->load(['user', 'filial']));
     }
 
     public function update(UpdateKashalokRequest $request, Kashalok $kashalok)

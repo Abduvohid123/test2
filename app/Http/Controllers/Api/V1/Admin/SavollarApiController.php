@@ -20,7 +20,7 @@ class SavollarApiController extends Controller
     {
         abort_if(Gate::denies('savollar_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new SavollarResource(Savollar::with(['savol_type'])->get());
+        return new SavollarResource(Savollar::with(['savol_type', 'filial'])->get());
     }
 
     public function store(StoreSavollarRequest $request)
@@ -36,7 +36,7 @@ class SavollarApiController extends Controller
     {
         abort_if(Gate::denies('savollar_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new SavollarResource($savollar->load(['savol_type']));
+        return new SavollarResource($savollar->load(['savol_type', 'filial']));
     }
 
     public function update(UpdateSavollarRequest $request, Savollar $savollar)

@@ -15,6 +15,8 @@ class AddRelationshipFieldsToStudentsTable extends Migration
             $table->foreign('reklama_id', 'reklama_fk_6097288')->references('id')->on('reklamas');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id', 'user_fk_6098113')->references('id')->on('users');
+            $table->unsignedBigInteger('filial_id')->nullable();
+            $table->foreign('filial_id', 'filial_fk_6100082')->references('id')->on('filials');
         });
     }
 }

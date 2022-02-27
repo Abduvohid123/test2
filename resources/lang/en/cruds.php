@@ -119,6 +119,8 @@ return [
             'cost_helper'         => ' ',
             'start_cource'        => 'Start Cource',
             'start_cource_helper' => ' ',
+            'filial'              => 'Filial',
+            'filial_helper'       => ' ',
         ],
     ],
     'room' => [
@@ -153,6 +155,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted at',
             'deleted_at_helper' => ' ',
+            'filial'            => 'Filial',
+            'filial_helper'     => ' ',
         ],
     ],
     'worker' => [
@@ -183,6 +187,8 @@ return [
             'status_helper'         => ' ',
             'user'                  => 'User',
             'user_helper'           => ' ',
+            'filial'                => 'Filial',
+            'filial_helper'         => ' ',
         ],
     ],
     'week' => [
@@ -241,6 +247,8 @@ return [
             'address_helper'      => ' ',
             'user'                => 'User',
             'user_helper'         => ' ',
+            'filial'              => 'Filial',
+            'filial_helper'       => ' ',
         ],
     ],
     'month' => [
@@ -365,6 +373,8 @@ return [
             'deleted_at_helper'   => ' ',
             'teacher'             => 'Teacher',
             'teacher_helper'      => ' ',
+            'filial'              => 'Filial',
+            'filial_helper'       => ' ',
         ],
     ],
     'progolSystem' => [
@@ -387,6 +397,8 @@ return [
             'group_helper'      => ' ',
             'student'           => 'Student',
             'student_helper'    => ' ',
+            'filial'            => 'Filial',
+            'filial_helper'     => ' ',
         ],
     ],
     'kashalok' => [
@@ -407,6 +419,8 @@ return [
             'status_helper'     => ' ',
             'user'              => 'User',
             'user_helper'       => ' ',
+            'filial'            => 'Filial',
+            'filial_helper'     => ' ',
         ],
     ],
     'reklama' => [
@@ -445,6 +459,8 @@ return [
             'status_helper'       => ' ',
             'phone_number'        => 'Phone Number',
             'phone_number_helper' => ' ',
+            'filial'              => 'Filial',
+            'filial_helper'       => ' ',
         ],
     ],
     'viloyatlar' => [
@@ -519,6 +535,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted at',
             'deleted_at_helper' => ' ',
+            'filial'            => 'Filial',
+            'filial_helper'     => ' ',
         ],
     ],
     'savolType' => [
@@ -537,6 +555,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted at',
             'deleted_at_helper' => ' ',
+            'filial'            => 'Filial',
+            'filial_helper'     => ' ',
         ],
     ],
     'javoblar' => [
@@ -555,6 +575,8 @@ return [
             'deleted_at_helper' => ' ',
             'savol'             => 'Savol',
             'savol_helper'      => ' ',
+            'filial'            => 'Filial',
+            'filial_helper'     => ' ',
         ],
     ],
     'sorovnomaOtkazish' => [
@@ -579,6 +601,8 @@ return [
             'updated_at_helper'  => ' ',
             'deleted_at'         => 'Deleted at',
             'deleted_at_helper'  => ' ',
+            'filial'             => 'Filial',
+            'filial_helper'      => ' ',
         ],
     ],
     'filial' => [

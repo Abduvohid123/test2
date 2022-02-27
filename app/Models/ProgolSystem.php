@@ -32,6 +32,7 @@ class ProgolSystem extends Model
         'active',
         'group_id',
         'student_id',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -55,6 +56,11 @@ class ProgolSystem extends Model
     public function student()
     {
         return $this->belongsTo(Student::class, 'student_id');
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyStudentRequest;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Filial;
 use App\Models\Group;
 use App\Models\Reklama;
 use App\Models\Student;
@@ -26,7 +27,7 @@ class StudentsController extends Controller
     {
         abort_if(Gate::denies('student_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $students = Student::with(['groups', 'weeks', 'tuman', 'reklama', 'user', 'media'])->get();
+        $students = Student::with(['groups', 'weeks', 'tuman', 'reklama', 'user', 'filial', 'media'])->get();
 
         $groups = Group::get();
 
@@ -38,7 +39,9 @@ class StudentsController extends Controller
 
         $users = User::get();
 
-        return view('admin.students.index', compact('groups', 'reklamas', 'students', 'tumanlars', 'users', 'weeks'));
+        $filials = Filial::get();
+
+        return view('admin.students.index', compact('filials', 'groups', 'reklamas', 'students', 'tumanlars', 'users', 'weeks'));
     }
 
     public function create()
@@ -55,7 +58,9 @@ class StudentsController extends Controller
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.students.create', compact('groups', 'reklamas', 'tumen', 'users', 'weeks'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.students.create', compact('filials', 'groups', 'reklamas', 'tumen', 'users', 'weeks'));
     }
 
     public function store(StoreStudentRequest $request)
@@ -88,9 +93,11 @@ class StudentsController extends Controller
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $student->load('groups', 'weeks', 'tuman', 'reklama', 'user');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.students.edit', compact('groups', 'reklamas', 'student', 'tumen', 'users', 'weeks'));
+        $student->load('groups', 'weeks', 'tuman', 'reklama', 'user', 'filial');
+
+        return view('admin.students.edit', compact('filials', 'groups', 'reklamas', 'student', 'tumen', 'users', 'weeks'));
     }
 
     public function update(UpdateStudentRequest $request, Student $student)
@@ -116,7 +123,7 @@ class StudentsController extends Controller
     {
         abort_if(Gate::denies('student_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $student->load('groups', 'weeks', 'tuman', 'reklama', 'user');
+        $student->load('groups', 'weeks', 'tuman', 'reklama', 'user', 'filial');
 
         return view('admin.students.show', compact('student'));
     }

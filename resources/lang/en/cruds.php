@@ -83,6 +83,8 @@ return [
             'deleted_at_helper' => ' ',
             'price'             => 'Narxi',
             'price_helper'      => ' ',
+            'filial'            => 'Filial',
+            'filial_helper'     => ' ',
         ],
     ],
     'group' => [
@@ -133,6 +135,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted at',
             'deleted_at_helper' => ' ',
+            'filial'            => 'Filial',
+            'filial_helper'     => ' ',
         ],
     ],
     'position' => [

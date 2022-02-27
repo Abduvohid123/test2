@@ -39,6 +39,14 @@
                             {{ $fan->price }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.fan.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $fan->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

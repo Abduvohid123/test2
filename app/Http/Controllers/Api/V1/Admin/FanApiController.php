@@ -17,7 +17,7 @@ class FanApiController extends Controller
     {
         abort_if(Gate::denies('fan_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new FanResource(Fan::all());
+        return new FanResource(Fan::with(['filial'])->get());
     }
 
     public function store(StoreFanRequest $request)
@@ -33,7 +33,7 @@ class FanApiController extends Controller
     {
         abort_if(Gate::denies('fan_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new FanResource($fan);
+        return new FanResource($fan->load(['filial']));
     }
 
     public function update(UpdateFanRequest $request, Fan $fan)

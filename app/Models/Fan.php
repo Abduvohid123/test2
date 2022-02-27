@@ -23,10 +23,16 @@ class Fan extends Model
     protected $fillable = [
         'name',
         'price',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

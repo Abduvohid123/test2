@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyRoomRequest;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Models\Filial;
 use App\Models\Room;
 use Gate;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class RoomsController extends Controller
     {
         abort_if(Gate::denies('room_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $rooms = Room::all();
+        $rooms = Room::with(['filial'])->get();
 
         return view('admin.rooms.index', compact('rooms'));
     }
@@ -26,7 +27,9 @@ class RoomsController extends Controller
     {
         abort_if(Gate::denies('room_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.rooms.create');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.rooms.create', compact('filials'));
     }
 
     public function store(StoreRoomRequest $request)
@@ -40,7 +43,11 @@ class RoomsController extends Controller
     {
         abort_if(Gate::denies('room_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.rooms.edit', compact('room'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $room->load('filial');
+
+        return view('admin.rooms.edit', compact('filials', 'room'));
     }
 
     public function update(UpdateRoomRequest $request, Room $room)
@@ -53,6 +60,8 @@ class RoomsController extends Controller
     public function show(Room $room)
     {
         abort_if(Gate::denies('room_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $room->load('filial');
 
         return view('admin.rooms.show', compact('room'));
     }

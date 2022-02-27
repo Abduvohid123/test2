@@ -32,6 +32,9 @@
                             {{ trans('cruds.fan.fields.price') }}
                         </th>
                         <th>
+                            {{ trans('cruds.fan.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -50,6 +53,9 @@
                             </td>
                             <td>
                                 {{ $fan->price ?? '' }}
+                            </td>
+                            <td>
+                                {{ $fan->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('fan_show')

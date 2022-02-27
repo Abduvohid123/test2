@@ -291,6 +291,8 @@ return [
             'group_helper'      => ' ',
             'tolov_turi'        => 'To\'lov Turi',
             'tolov_turi_helper' => ' ',
+            'filial'            => 'Filial',
+            'filial_helper'     => ' ',
         ],
     ],
     'qoshimaChiqimlar' => [

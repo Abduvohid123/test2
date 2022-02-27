@@ -50,6 +50,9 @@
                             {{ trans('cruds.tolovlar.fields.tolov_turi') }}
                         </th>
                         <th>
+                            {{ trans('cruds.tolovlar.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -86,6 +89,9 @@
                             </td>
                             <td>
                                 {{ App\Models\Tolovlar::TOLOV_TURI_SELECT[$tolovlar->tolov_turi] ?? '' }}
+                            </td>
+                            <td>
+                                {{ $tolovlar->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('tolovlar_show')

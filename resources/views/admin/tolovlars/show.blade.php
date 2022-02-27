@@ -87,6 +87,14 @@
                             {{ App\Models\Tolovlar::TOLOV_TURI_SELECT[$tolovlar->tolov_turi] ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.tolovlar.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $tolovlar->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

@@ -15,6 +15,8 @@ class AddRelationshipFieldsToTolovlarsTable extends Migration
             $table->foreign('student_id', 'student_fk_5580715')->references('id')->on('students');
             $table->unsignedBigInteger('month_id')->nullable();
             $table->foreign('month_id', 'month_fk_5581035')->references('id')->on('months');
+            $table->unsignedBigInteger('filial_id')->nullable();
+            $table->foreign('filial_id', 'filial_fk_6100039')->references('id')->on('filials');
         });
     }
 }

@@ -29,6 +29,9 @@
                             {{ trans('cruds.room.fields.name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.room.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -44,6 +47,9 @@
                             </td>
                             <td>
                                 {{ $room->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $room->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('room_show')

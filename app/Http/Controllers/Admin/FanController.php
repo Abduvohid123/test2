@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroyFanRequest;
 use App\Http\Requests\StoreFanRequest;
 use App\Http\Requests\UpdateFanRequest;
 use App\Models\Fan;
+use App\Models\Filial;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,7 @@ class FanController extends Controller
     {
         abort_if(Gate::denies('fan_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $fans = Fan::all();
+        $fans = Fan::with(['filial'])->get();
 
         return view('admin.fans.index', compact('fans'));
     }
@@ -26,7 +27,9 @@ class FanController extends Controller
     {
         abort_if(Gate::denies('fan_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.fans.create');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.fans.create', compact('filials'));
     }
 
     public function store(StoreFanRequest $request)
@@ -40,7 +43,11 @@ class FanController extends Controller
     {
         abort_if(Gate::denies('fan_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.fans.edit', compact('fan'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $fan->load('filial');
+
+        return view('admin.fans.edit', compact('fan', 'filials'));
     }
 
     public function update(UpdateFanRequest $request, Fan $fan)
@@ -53,6 +60,8 @@ class FanController extends Controller
     public function show(Fan $fan)
     {
         abort_if(Gate::denies('fan_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $fan->load('filial');
 
         return view('admin.fans.show', compact('fan'));
     }

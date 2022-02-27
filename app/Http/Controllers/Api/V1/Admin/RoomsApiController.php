@@ -17,7 +17,7 @@ class RoomsApiController extends Controller
     {
         abort_if(Gate::denies('room_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new RoomResource(Room::all());
+        return new RoomResource(Room::with(['filial'])->get());
     }
 
     public function store(StoreRoomRequest $request)
@@ -33,7 +33,7 @@ class RoomsApiController extends Controller
     {
         abort_if(Gate::denies('room_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new RoomResource($room);
+        return new RoomResource($room->load(['filial']));
     }
 
     public function update(UpdateRoomRequest $request, Room $room)

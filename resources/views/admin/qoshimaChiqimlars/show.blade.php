@@ -47,6 +47,14 @@
                             {{ $qoshimaChiqimlar->kim_tarafidan_olindi->name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.qoshimaChiqimlar.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $qoshimaChiqimlar->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

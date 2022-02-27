@@ -17,7 +17,7 @@ class QoshimaChiqimlarApiController extends Controller
     {
         abort_if(Gate::denies('qoshima_chiqimlar_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new QoshimaChiqimlarResource(QoshimaChiqimlar::with(['kim_tarafidan_olindi'])->get());
+        return new QoshimaChiqimlarResource(QoshimaChiqimlar::with(['kim_tarafidan_olindi', 'filial'])->get());
     }
 
     public function store(StoreQoshimaChiqimlarRequest $request)
@@ -33,7 +33,7 @@ class QoshimaChiqimlarApiController extends Controller
     {
         abort_if(Gate::denies('qoshima_chiqimlar_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new QoshimaChiqimlarResource($qoshimaChiqimlar->load(['kim_tarafidan_olindi']));
+        return new QoshimaChiqimlarResource($qoshimaChiqimlar->load(['kim_tarafidan_olindi', 'filial']));
     }
 
     public function update(UpdateQoshimaChiqimlarRequest $request, QoshimaChiqimlar $qoshimaChiqimlar)

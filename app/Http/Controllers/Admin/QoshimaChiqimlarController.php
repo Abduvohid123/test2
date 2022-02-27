@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyQoshimaChiqimlarRequest;
 use App\Http\Requests\StoreQoshimaChiqimlarRequest;
 use App\Http\Requests\UpdateQoshimaChiqimlarRequest;
+use App\Models\Filial;
 use App\Models\QoshimaChiqimlar;
 use App\Models\Worker;
 use Gate;
@@ -18,7 +19,7 @@ class QoshimaChiqimlarController extends Controller
     {
         abort_if(Gate::denies('qoshima_chiqimlar_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qoshimaChiqimlars = QoshimaChiqimlar::with(['kim_tarafidan_olindi'])->get();
+        $qoshimaChiqimlars = QoshimaChiqimlar::with(['kim_tarafidan_olindi', 'filial'])->get();
 
         return view('admin.qoshimaChiqimlars.index', compact('qoshimaChiqimlars'));
     }
@@ -29,7 +30,9 @@ class QoshimaChiqimlarController extends Controller
 
         $kim_tarafidan_olindis = Worker::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.qoshimaChiqimlars.create', compact('kim_tarafidan_olindis'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.qoshimaChiqimlars.create', compact('filials', 'kim_tarafidan_olindis'));
     }
 
     public function store(StoreQoshimaChiqimlarRequest $request)
@@ -45,9 +48,11 @@ class QoshimaChiqimlarController extends Controller
 
         $kim_tarafidan_olindis = Worker::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $qoshimaChiqimlar->load('kim_tarafidan_olindi');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.qoshimaChiqimlars.edit', compact('kim_tarafidan_olindis', 'qoshimaChiqimlar'));
+        $qoshimaChiqimlar->load('kim_tarafidan_olindi', 'filial');
+
+        return view('admin.qoshimaChiqimlars.edit', compact('filials', 'kim_tarafidan_olindis', 'qoshimaChiqimlar'));
     }
 
     public function update(UpdateQoshimaChiqimlarRequest $request, QoshimaChiqimlar $qoshimaChiqimlar)
@@ -61,7 +66,7 @@ class QoshimaChiqimlarController extends Controller
     {
         abort_if(Gate::denies('qoshima_chiqimlar_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qoshimaChiqimlar->load('kim_tarafidan_olindi');
+        $qoshimaChiqimlar->load('kim_tarafidan_olindi', 'filial');
 
         return view('admin.qoshimaChiqimlars.show', compact('qoshimaChiqimlar'));
     }

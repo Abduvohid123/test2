@@ -17,7 +17,7 @@ class BoshqaIshchilarMaoshlariApiController extends Controller
     {
         abort_if(Gate::denies('boshqa_ishchilar_maoshlari_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new BoshqaIshchilarMaoshlariResource(BoshqaIshchilarMaoshlari::with(['worker'])->get());
+        return new BoshqaIshchilarMaoshlariResource(BoshqaIshchilarMaoshlari::with(['worker', 'filial'])->get());
     }
 
     public function store(StoreBoshqaIshchilarMaoshlariRequest $request)
@@ -33,7 +33,7 @@ class BoshqaIshchilarMaoshlariApiController extends Controller
     {
         abort_if(Gate::denies('boshqa_ishchilar_maoshlari_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new BoshqaIshchilarMaoshlariResource($boshqaIshchilarMaoshlari->load(['worker']));
+        return new BoshqaIshchilarMaoshlariResource($boshqaIshchilarMaoshlari->load(['worker', 'filial']));
     }
 
     public function update(UpdateBoshqaIshchilarMaoshlariRequest $request, BoshqaIshchilarMaoshlari $boshqaIshchilarMaoshlari)

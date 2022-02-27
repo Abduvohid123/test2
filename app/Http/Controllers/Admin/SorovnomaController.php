@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroySorovnomaRequest;
 use App\Http\Requests\StoreSorovnomaRequest;
 use App\Http\Requests\UpdateSorovnomaRequest;
+use App\Models\Filial;
 use App\Models\Sorovnoma;
 use Gate;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class SorovnomaController extends Controller
     {
         abort_if(Gate::denies('sorovnoma_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $sorovnomas = Sorovnoma::all();
+        $sorovnomas = Sorovnoma::with(['filial'])->get();
 
         return view('admin.sorovnomas.index', compact('sorovnomas'));
     }
@@ -26,7 +27,9 @@ class SorovnomaController extends Controller
     {
         abort_if(Gate::denies('sorovnoma_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.sorovnomas.create');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.sorovnomas.create', compact('filials'));
     }
 
     public function store(StoreSorovnomaRequest $request)
@@ -40,7 +43,11 @@ class SorovnomaController extends Controller
     {
         abort_if(Gate::denies('sorovnoma_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.sorovnomas.edit', compact('sorovnoma'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $sorovnoma->load('filial');
+
+        return view('admin.sorovnomas.edit', compact('filials', 'sorovnoma'));
     }
 
     public function update(UpdateSorovnomaRequest $request, Sorovnoma $sorovnoma)
@@ -53,6 +60,8 @@ class SorovnomaController extends Controller
     public function show(Sorovnoma $sorovnoma)
     {
         abort_if(Gate::denies('sorovnoma_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $sorovnoma->load('filial');
 
         return view('admin.sorovnomas.show', compact('sorovnoma'));
     }

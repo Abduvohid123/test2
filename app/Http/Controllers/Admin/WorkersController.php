@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyWorkerRequest;
 use App\Http\Requests\StoreWorkerRequest;
 use App\Http\Requests\UpdateWorkerRequest;
+use App\Models\Filial;
 use App\Models\Position;
 use App\Models\User;
 use App\Models\Worker;
@@ -23,7 +24,7 @@ class WorkersController extends Controller
     {
         abort_if(Gate::denies('worker_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $workers = Worker::with(['position', 'user', 'media'])->get();
+        $workers = Worker::with(['position', 'user', 'filial', 'media'])->get();
 
         return view('admin.workers.index', compact('workers'));
     }
@@ -36,7 +37,9 @@ class WorkersController extends Controller
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.workers.create', compact('positions', 'users'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.workers.create', compact('filials', 'positions', 'users'));
     }
 
     public function store(StoreWorkerRequest $request)
@@ -62,9 +65,11 @@ class WorkersController extends Controller
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $worker->load('position', 'user');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.workers.edit', compact('positions', 'users', 'worker'));
+        $worker->load('position', 'user', 'filial');
+
+        return view('admin.workers.edit', compact('filials', 'positions', 'users', 'worker'));
     }
 
     public function update(UpdateWorkerRequest $request, Worker $worker)
@@ -89,7 +94,7 @@ class WorkersController extends Controller
     {
         abort_if(Gate::denies('worker_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $worker->load('position', 'user');
+        $worker->load('position', 'user', 'filial');
 
         return view('admin.workers.show', compact('worker'));
     }

@@ -17,7 +17,7 @@ class GroupsApiController extends Controller
     {
         abort_if(Gate::denies('group_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new GroupResource(Group::with(['room', 'fan', 'days'])->get());
+        return new GroupResource(Group::with(['room', 'fan', 'days', 'filial'])->get());
     }
 
     public function store(StoreGroupRequest $request)
@@ -34,7 +34,7 @@ class GroupsApiController extends Controller
     {
         abort_if(Gate::denies('group_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new GroupResource($group->load(['room', 'fan', 'days']));
+        return new GroupResource($group->load(['room', 'fan', 'days', 'filial']));
     }
 
     public function update(UpdateGroupRequest $request, Group $group)

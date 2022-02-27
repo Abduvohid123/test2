@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroySavollarRequest;
 use App\Http\Requests\StoreSavollarRequest;
 use App\Http\Requests\UpdateSavollarRequest;
+use App\Models\Filial;
 use App\Models\Savollar;
 use App\Models\SavolType;
 use Gate;
@@ -22,7 +23,7 @@ class SavollarController extends Controller
     {
         abort_if(Gate::denies('savollar_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $savollars = Savollar::with(['savol_type'])->get();
+        $savollars = Savollar::with(['savol_type', 'filial'])->get();
 
         return view('admin.savollars.index', compact('savollars'));
     }
@@ -33,7 +34,9 @@ class SavollarController extends Controller
 
         $savol_types = SavolType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.savollars.create', compact('savol_types'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.savollars.create', compact('filials', 'savol_types'));
     }
 
     public function store(StoreSavollarRequest $request)
@@ -53,9 +56,11 @@ class SavollarController extends Controller
 
         $savol_types = SavolType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $savollar->load('savol_type');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.savollars.edit', compact('savol_types', 'savollar'));
+        $savollar->load('savol_type', 'filial');
+
+        return view('admin.savollars.edit', compact('filials', 'savol_types', 'savollar'));
     }
 
     public function update(UpdateSavollarRequest $request, Savollar $savollar)
@@ -69,7 +74,7 @@ class SavollarController extends Controller
     {
         abort_if(Gate::denies('savollar_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $savollar->load('savol_type');
+        $savollar->load('savol_type', 'filial');
 
         return view('admin.savollars.show', compact('savollar'));
     }

@@ -13,6 +13,8 @@ class AddRelationshipFieldsToWorkersTable extends Migration
             $table->foreign('position_id', 'position_fk_5508817')->references('id')->on('positions');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id', 'user_fk_6098135')->references('id')->on('users');
+            $table->unsignedBigInteger('filial_id')->nullable();
+            $table->foreign('filial_id', 'filial_fk_6100087')->references('id')->on('filials');
         });
     }
 }

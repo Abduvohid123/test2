@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyKashalokRequest;
 use App\Http\Requests\StoreKashalokRequest;
 use App\Http\Requests\UpdateKashalokRequest;
+use App\Models\Filial;
 use App\Models\Kashalok;
 use App\Models\User;
 use Gate;
@@ -18,7 +19,7 @@ class KashalokController extends Controller
     {
         abort_if(Gate::denies('kashalok_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $kashaloks = Kashalok::with(['user'])->get();
+        $kashaloks = Kashalok::with(['user', 'filial'])->get();
 
         return view('admin.kashaloks.index', compact('kashaloks'));
     }
@@ -29,7 +30,9 @@ class KashalokController extends Controller
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.kashaloks.create', compact('users'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.kashaloks.create', compact('filials', 'users'));
     }
 
     public function store(StoreKashalokRequest $request)
@@ -45,9 +48,11 @@ class KashalokController extends Controller
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $kashalok->load('user');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.kashaloks.edit', compact('kashalok', 'users'));
+        $kashalok->load('user', 'filial');
+
+        return view('admin.kashaloks.edit', compact('filials', 'kashalok', 'users'));
     }
 
     public function update(UpdateKashalokRequest $request, Kashalok $kashalok)
@@ -61,7 +66,7 @@ class KashalokController extends Controller
     {
         abort_if(Gate::denies('kashalok_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $kashalok->load('user');
+        $kashalok->load('user', 'filial');
 
         return view('admin.kashaloks.show', compact('kashalok'));
     }

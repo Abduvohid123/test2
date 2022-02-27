@@ -143,6 +143,14 @@
                             {{ $student->user->name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.student.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $student->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

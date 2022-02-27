@@ -27,6 +27,7 @@ class Javoblar extends Model implements HasMedia
     protected $fillable = [
         'javob',
         'savol_id',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -41,6 +42,11 @@ class Javoblar extends Model implements HasMedia
     public function savol()
     {
         return $this->belongsTo(Savollar::class, 'savol_id');
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

@@ -105,6 +105,14 @@
                             {{ $group->start_cource }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.group.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $group->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

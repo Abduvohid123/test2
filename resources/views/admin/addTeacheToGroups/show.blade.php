@@ -57,6 +57,14 @@
                             {{ $addTeacheToGroup->oylik }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.addTeacheToGroup.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $addTeacheToGroup->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

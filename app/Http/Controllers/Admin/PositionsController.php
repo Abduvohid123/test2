@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyPositionRequest;
 use App\Http\Requests\StorePositionRequest;
 use App\Http\Requests\UpdatePositionRequest;
+use App\Models\Filial;
 use App\Models\Position;
 use Gate;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class PositionsController extends Controller
     {
         abort_if(Gate::denies('position_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $positions = Position::all();
+        $positions = Position::with(['filial'])->get();
 
         return view('admin.positions.index', compact('positions'));
     }
@@ -26,7 +27,9 @@ class PositionsController extends Controller
     {
         abort_if(Gate::denies('position_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.positions.create');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.positions.create', compact('filials'));
     }
 
     public function store(StorePositionRequest $request)
@@ -40,7 +43,11 @@ class PositionsController extends Controller
     {
         abort_if(Gate::denies('position_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.positions.edit', compact('position'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $position->load('filial');
+
+        return view('admin.positions.edit', compact('filials', 'position'));
     }
 
     public function update(UpdatePositionRequest $request, Position $position)
@@ -53,6 +60,8 @@ class PositionsController extends Controller
     public function show(Position $position)
     {
         abort_if(Gate::denies('position_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $position->load('filial');
 
         return view('admin.positions.show', compact('position'));
     }

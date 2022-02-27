@@ -50,6 +50,9 @@
                             {{ trans('cruds.worker.fields.user') }}
                         </th>
                         <th>
+                            {{ trans('cruds.worker.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -90,6 +93,9 @@
                             </td>
                             <td>
                                 {{ $worker->user->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $worker->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('worker_show')

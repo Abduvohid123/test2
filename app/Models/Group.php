@@ -38,6 +38,7 @@ class Group extends Model
         'start',
         'finish',
         'start_cource',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -66,6 +67,11 @@ class Group extends Model
     public function setStartCourceAttribute($value)
     {
         $this->attributes['start_cource'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

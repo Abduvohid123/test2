@@ -32,6 +32,9 @@
                             {{ trans('cruds.savolType.fields.sorovnoma') }}
                         </th>
                         <th>
+                            {{ trans('cruds.savolType.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -50,6 +53,9 @@
                             </td>
                             <td>
                                 {{ $savolType->sorovnoma->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $savolType->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('savol_type_show')

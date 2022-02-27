@@ -17,7 +17,7 @@ class PositionsApiController extends Controller
     {
         abort_if(Gate::denies('position_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new PositionResource(Position::all());
+        return new PositionResource(Position::with(['filial'])->get());
     }
 
     public function store(StorePositionRequest $request)
@@ -33,7 +33,7 @@ class PositionsApiController extends Controller
     {
         abort_if(Gate::denies('position_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new PositionResource($position);
+        return new PositionResource($position->load(['filial']));
     }
 
     public function update(UpdatePositionRequest $request, Position $position)

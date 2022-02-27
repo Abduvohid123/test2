@@ -38,6 +38,9 @@
                             {{ trans('cruds.otaOna.fields.phone_number') }}
                         </th>
                         <th>
+                            {{ trans('cruds.otaOna.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -62,6 +65,9 @@
                             </td>
                             <td>
                                 {{ $otaOna->phone_number ?? '' }}
+                            </td>
+                            <td>
+                                {{ $otaOna->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('ota_ona_show')

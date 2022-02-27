@@ -55,6 +55,14 @@
                             {{ $progolSystem->student->name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.progolSystem.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $progolSystem->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

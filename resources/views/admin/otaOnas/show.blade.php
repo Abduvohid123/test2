@@ -55,6 +55,14 @@
                             {{ $otaOna->phone_number }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.otaOna.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $otaOna->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

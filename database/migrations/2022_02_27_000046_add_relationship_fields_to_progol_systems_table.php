@@ -13,6 +13,8 @@ class AddRelationshipFieldsToProgolSystemsTable extends Migration
             $table->foreign('group_id', 'group_fk_5599216')->references('id')->on('groups');
             $table->unsignedBigInteger('student_id')->nullable();
             $table->foreign('student_id', 'student_fk_6098096')->references('id')->on('students');
+            $table->unsignedBigInteger('filial_id')->nullable();
+            $table->foreign('filial_id', 'filial_fk_6100085')->references('id')->on('filials');
         });
     }
 }

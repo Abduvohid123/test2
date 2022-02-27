@@ -17,7 +17,7 @@ class ProgolSystemApiController extends Controller
     {
         abort_if(Gate::denies('progol_system_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ProgolSystemResource(ProgolSystem::with(['group', 'student'])->get());
+        return new ProgolSystemResource(ProgolSystem::with(['group', 'student', 'filial'])->get());
     }
 
     public function store(StoreProgolSystemRequest $request)
@@ -33,7 +33,7 @@ class ProgolSystemApiController extends Controller
     {
         abort_if(Gate::denies('progol_system_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ProgolSystemResource($progolSystem->load(['group', 'student']));
+        return new ProgolSystemResource($progolSystem->load(['group', 'student', 'filial']));
     }
 
     public function update(UpdateProgolSystemRequest $request, ProgolSystem $progolSystem)

@@ -35,6 +35,9 @@
                             {{ trans('cruds.kashalok.fields.status') }}
                         </th>
                         <th>
+                            {{ trans('cruds.kashalok.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -56,6 +59,9 @@
                             </td>
                             <td>
                                 {{ App\Models\Kashalok::STATUS_SELECT[$kashalok->status] ?? '' }}
+                            </td>
+                            <td>
+                                {{ $kashalok->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('kashalok_show')

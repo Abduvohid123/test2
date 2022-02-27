@@ -17,7 +17,7 @@ class OtaOnaApiController extends Controller
     {
         abort_if(Gate::denies('ota_ona_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new OtaOnaResource(OtaOna::with(['student'])->get());
+        return new OtaOnaResource(OtaOna::with(['student', 'filial'])->get());
     }
 
     public function store(StoreOtaOnaRequest $request)
@@ -33,7 +33,7 @@ class OtaOnaApiController extends Controller
     {
         abort_if(Gate::denies('ota_ona_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new OtaOnaResource($otaOna->load(['student']));
+        return new OtaOnaResource($otaOna->load(['student', 'filial']));
     }
 
     public function update(UpdateOtaOnaRequest $request, OtaOna $otaOna)

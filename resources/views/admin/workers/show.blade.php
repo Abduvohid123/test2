@@ -91,6 +91,14 @@
                             {{ $worker->user->name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.worker.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $worker->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

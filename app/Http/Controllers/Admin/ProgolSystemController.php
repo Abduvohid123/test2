@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyProgolSystemRequest;
 use App\Http\Requests\StoreProgolSystemRequest;
 use App\Http\Requests\UpdateProgolSystemRequest;
+use App\Models\Filial;
 use App\Models\Group;
 use App\Models\ProgolSystem;
 use App\Models\Student;
@@ -19,7 +20,7 @@ class ProgolSystemController extends Controller
     {
         abort_if(Gate::denies('progol_system_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $progolSystems = ProgolSystem::with(['group', 'student'])->get();
+        $progolSystems = ProgolSystem::with(['group', 'student', 'filial'])->get();
 
         return view('admin.progolSystems.index', compact('progolSystems'));
     }
@@ -32,7 +33,9 @@ class ProgolSystemController extends Controller
 
         $students = Student::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.progolSystems.create', compact('groups', 'students'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.progolSystems.create', compact('filials', 'groups', 'students'));
     }
 
     public function store(StoreProgolSystemRequest $request)
@@ -50,9 +53,11 @@ class ProgolSystemController extends Controller
 
         $students = Student::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $progolSystem->load('group', 'student');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.progolSystems.edit', compact('groups', 'progolSystem', 'students'));
+        $progolSystem->load('group', 'student', 'filial');
+
+        return view('admin.progolSystems.edit', compact('filials', 'groups', 'progolSystem', 'students'));
     }
 
     public function update(UpdateProgolSystemRequest $request, ProgolSystem $progolSystem)
@@ -66,7 +71,7 @@ class ProgolSystemController extends Controller
     {
         abort_if(Gate::denies('progol_system_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $progolSystem->load('group', 'student');
+        $progolSystem->load('group', 'student', 'filial');
 
         return view('admin.progolSystems.show', compact('progolSystem'));
     }

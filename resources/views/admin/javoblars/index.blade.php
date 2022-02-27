@@ -29,6 +29,9 @@
                             {{ trans('cruds.javoblar.fields.savol') }}
                         </th>
                         <th>
+                            {{ trans('cruds.javoblar.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -44,6 +47,9 @@
                             </td>
                             <td>
                                 {{ $javoblar->savol->savol_title ?? '' }}
+                            </td>
+                            <td>
+                                {{ $javoblar->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('javoblar_show')

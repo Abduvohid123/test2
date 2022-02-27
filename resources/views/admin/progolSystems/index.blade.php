@@ -38,6 +38,9 @@
                             {{ trans('cruds.progolSystem.fields.student') }}
                         </th>
                         <th>
+                            {{ trans('cruds.progolSystem.fields.filial') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -62,6 +65,9 @@
                             </td>
                             <td>
                                 {{ $progolSystem->student->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $progolSystem->filial->name ?? '' }}
                             </td>
                             <td>
                                 @can('progol_system_show')

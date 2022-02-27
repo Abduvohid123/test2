@@ -30,6 +30,7 @@ class OtaOna extends Model
         'student_id',
         'status',
         'phone_number',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -38,6 +39,11 @@ class OtaOna extends Model
     public function student()
     {
         return $this->belongsTo(Student::class, 'student_id');
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

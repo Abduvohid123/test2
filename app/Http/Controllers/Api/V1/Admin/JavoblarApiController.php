@@ -20,7 +20,7 @@ class JavoblarApiController extends Controller
     {
         abort_if(Gate::denies('javoblar_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new JavoblarResource(Javoblar::with(['savol'])->get());
+        return new JavoblarResource(Javoblar::with(['savol', 'filial'])->get());
     }
 
     public function store(StoreJavoblarRequest $request)
@@ -36,7 +36,7 @@ class JavoblarApiController extends Controller
     {
         abort_if(Gate::denies('javoblar_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new JavoblarResource($javoblar->load(['savol']));
+        return new JavoblarResource($javoblar->load(['savol', 'filial']));
     }
 
     public function update(UpdateJavoblarRequest $request, Javoblar $javoblar)

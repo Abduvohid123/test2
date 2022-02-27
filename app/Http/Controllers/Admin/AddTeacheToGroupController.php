@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroyAddTeacheToGroupRequest;
 use App\Http\Requests\StoreAddTeacheToGroupRequest;
 use App\Http\Requests\UpdateAddTeacheToGroupRequest;
 use App\Models\AddTeacheToGroup;
+use App\Models\Filial;
 use App\Models\Group;
 use App\Models\Worker;
 use Gate;
@@ -19,7 +20,7 @@ class AddTeacheToGroupController extends Controller
     {
         abort_if(Gate::denies('add_teache_to_group_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $addTeacheToGroups = AddTeacheToGroup::with(['group', 'teachers'])->get();
+        $addTeacheToGroups = AddTeacheToGroup::with(['group', 'teachers', 'filial'])->get();
 
         return view('admin.addTeacheToGroups.index', compact('addTeacheToGroups'));
     }
@@ -32,7 +33,9 @@ class AddTeacheToGroupController extends Controller
 
         $teachers = Worker::pluck('name', 'id');
 
-        return view('admin.addTeacheToGroups.create', compact('groups', 'teachers'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.addTeacheToGroups.create', compact('filials', 'groups', 'teachers'));
     }
 
     public function store(StoreAddTeacheToGroupRequest $request)
@@ -51,9 +54,11 @@ class AddTeacheToGroupController extends Controller
 
         $teachers = Worker::pluck('name', 'id');
 
-        $addTeacheToGroup->load('group', 'teachers');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.addTeacheToGroups.edit', compact('addTeacheToGroup', 'groups', 'teachers'));
+        $addTeacheToGroup->load('group', 'teachers', 'filial');
+
+        return view('admin.addTeacheToGroups.edit', compact('addTeacheToGroup', 'filials', 'groups', 'teachers'));
     }
 
     public function update(UpdateAddTeacheToGroupRequest $request, AddTeacheToGroup $addTeacheToGroup)
@@ -68,7 +73,7 @@ class AddTeacheToGroupController extends Controller
     {
         abort_if(Gate::denies('add_teache_to_group_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $addTeacheToGroup->load('group', 'teachers');
+        $addTeacheToGroup->load('group', 'teachers', 'filial');
 
         return view('admin.addTeacheToGroups.show', compact('addTeacheToGroup'));
     }

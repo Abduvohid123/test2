@@ -39,6 +39,14 @@
                             {{ $savolType->sorovnoma->name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.savolType.fields.filial') }}
+                        </th>
+                        <td>
+                            {{ $savolType->filial->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

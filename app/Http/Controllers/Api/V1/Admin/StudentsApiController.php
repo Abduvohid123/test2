@@ -20,7 +20,7 @@ class StudentsApiController extends Controller
     {
         abort_if(Gate::denies('student_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new StudentResource(Student::with(['groups', 'weeks', 'tuman', 'reklama', 'user'])->get());
+        return new StudentResource(Student::with(['groups', 'weeks', 'tuman', 'reklama', 'user', 'filial'])->get());
     }
 
     public function store(StoreStudentRequest $request)
@@ -41,7 +41,7 @@ class StudentsApiController extends Controller
     {
         abort_if(Gate::denies('student_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new StudentResource($student->load(['groups', 'weeks', 'tuman', 'reklama', 'user']));
+        return new StudentResource($student->load(['groups', 'weeks', 'tuman', 'reklama', 'user', 'filial']));
     }
 
     public function update(UpdateStudentRequest $request, Student $student)

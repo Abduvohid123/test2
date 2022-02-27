@@ -29,6 +29,7 @@ class AddTeacheToGroup extends Model
         'group_id',
         'sallary_type',
         'oylik',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -42,6 +43,11 @@ class AddTeacheToGroup extends Model
     public function teachers()
     {
         return $this->belongsToMany(Worker::class);
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

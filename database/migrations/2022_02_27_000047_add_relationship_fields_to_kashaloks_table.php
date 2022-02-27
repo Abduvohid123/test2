@@ -11,6 +11,8 @@ class AddRelationshipFieldsToKashaloksTable extends Migration
         Schema::table('kashaloks', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id', 'user_fk_6098425')->references('id')->on('users');
+            $table->unsignedBigInteger('filial_id')->nullable();
+            $table->foreign('filial_id', 'filial_fk_6100088')->references('id')->on('filials');
         });
     }
 }

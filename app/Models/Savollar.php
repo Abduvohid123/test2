@@ -28,6 +28,7 @@ class Savollar extends Model implements HasMedia
         'savol',
         'savol_title',
         'savol_type_id',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -42,6 +43,11 @@ class Savollar extends Model implements HasMedia
     public function savol_type()
     {
         return $this->belongsTo(SavolType::class, 'savol_type_id');
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

@@ -55,6 +55,7 @@ class Student extends Model implements HasMedia
         'address',
         'reklama_id',
         'user_id',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -111,6 +112,11 @@ class Student extends Model implements HasMedia
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

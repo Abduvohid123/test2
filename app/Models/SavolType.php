@@ -23,6 +23,7 @@ class SavolType extends Model
     protected $fillable = [
         'name',
         'sorovnoma_id',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -31,6 +32,11 @@ class SavolType extends Model
     public function sorovnoma()
     {
         return $this->belongsTo(Sorovnoma::class, 'sorovnoma_id');
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

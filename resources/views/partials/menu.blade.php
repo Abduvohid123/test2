@@ -282,7 +282,7 @@
             </li>
         @endcan
         @can('sorovnoma_otkazish_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/sorovnomas*") ? "c-show" : "" }} {{ request()->is("admin/savol-types*") ? "c-show" : "" }} {{ request()->is("admin/javoblars*") ? "c-show" : "" }} {{ request()->is("admin/savollars*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/sorovnomas*") ? "c-show" : "" }} {{ request()->is("admin/savol-types*") ? "c-show" : "" }} {{ request()->is("admin/savollars*") ? "c-show" : "" }} {{ request()->is("admin/javoblars*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
@@ -310,16 +310,6 @@
                             </a>
                         </li>
                     @endcan
-                    @can('javoblar_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.javoblars.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/javoblars") || request()->is("admin/javoblars/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.javoblar.title') }}
-                            </a>
-                        </li>
-                    @endcan
                     @can('savollar_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.savollars.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/savollars") || request()->is("admin/savollars/*") ? "c-active" : "" }}">
@@ -327,6 +317,16 @@
 
                                 </i>
                                 {{ trans('cruds.savollar.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('javoblar_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.javoblars.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/javoblars") || request()->is("admin/javoblars/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.javoblar.title') }}
                             </a>
                         </li>
                     @endcan

@@ -17,7 +17,7 @@ class TolovlarApiController extends Controller
     {
         abort_if(Gate::denies('tolovlar_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TolovlarResource(Tolovlar::with(['group', 'student', 'month'])->get());
+        return new TolovlarResource(Tolovlar::with(['group', 'student', 'month', 'filial'])->get());
     }
 
     public function store(StoreTolovlarRequest $request)
@@ -33,7 +33,7 @@ class TolovlarApiController extends Controller
     {
         abort_if(Gate::denies('tolovlar_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TolovlarResource($tolovlar->load(['group', 'student', 'month']));
+        return new TolovlarResource($tolovlar->load(['group', 'student', 'month', 'filial']));
     }
 
     public function update(UpdateTolovlarRequest $request, Tolovlar $tolovlar)

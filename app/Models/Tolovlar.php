@@ -42,6 +42,7 @@ class Tolovlar extends Model
         'summa',
         'chegirma',
         'tolov_turi',
+        'filial_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -60,6 +61,11 @@ class Tolovlar extends Model
     public function month()
     {
         return $this->belongsTo(Month::class, 'month_id');
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo(Filial::class, 'filial_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

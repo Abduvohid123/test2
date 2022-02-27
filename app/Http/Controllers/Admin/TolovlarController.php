@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyTolovlarRequest;
 use App\Http\Requests\StoreTolovlarRequest;
 use App\Http\Requests\UpdateTolovlarRequest;
+use App\Models\Filial;
 use App\Models\Group;
 use App\Models\Month;
 use App\Models\Student;
@@ -20,7 +21,7 @@ class TolovlarController extends Controller
     {
         abort_if(Gate::denies('tolovlar_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $tolovlars = Tolovlar::with(['group', 'student', 'month'])->get();
+        $tolovlars = Tolovlar::with(['group', 'student', 'month', 'filial'])->get();
 
         return view('admin.tolovlars.index', compact('tolovlars'));
     }
@@ -35,7 +36,9 @@ class TolovlarController extends Controller
 
         $months = Month::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.tolovlars.create', compact('groups', 'months', 'students'));
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.tolovlars.create', compact('filials', 'groups', 'months', 'students'));
     }
 
     public function store(StoreTolovlarRequest $request)
@@ -55,9 +58,11 @@ class TolovlarController extends Controller
 
         $months = Month::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $tolovlar->load('group', 'student', 'month');
+        $filials = Filial::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.tolovlars.edit', compact('groups', 'months', 'students', 'tolovlar'));
+        $tolovlar->load('group', 'student', 'month', 'filial');
+
+        return view('admin.tolovlars.edit', compact('filials', 'groups', 'months', 'students', 'tolovlar'));
     }
 
     public function update(UpdateTolovlarRequest $request, Tolovlar $tolovlar)
@@ -71,7 +76,7 @@ class TolovlarController extends Controller
     {
         abort_if(Gate::denies('tolovlar_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $tolovlar->load('group', 'student', 'month');
+        $tolovlar->load('group', 'student', 'month', 'filial');
 
         return view('admin.tolovlars.show', compact('tolovlar'));
     }
